@@ -1,41 +1,39 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '@/views/accounts/Login'
-import Logout from '@/views/accounts/Logout'
-import Profile from '@/views/accounts/Profile'
-import Signup from '@/views/accounts/Signup'
-import Movies from '@/views/movies/Movies'
-
-
+import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import Signup from '../views/Signup.vue'
+import Profile from '../views/Profile.vue'
+import Worldcup from '../views/Worldcup.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Login',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/login',
+    name: 'login',
     component: Login
   },
   {
-    path: '/accounts/profile',
-    name: 'Profile',
-    component: Profile
-  },
-  {
-    path: '/accounts/Logout',
-    name: 'Logout',
-    component: Logout
-  },
-  {
-    path: '/accounts/signup',
-    name: 'Signup',
+    path: '/signup',
+    name: 'signup',
     component: Signup
   },
   {
-    path: '/movies',
-    name: 'Movies',
-    component: Movies
-  },  
+    path: '/profile',
+    name: 'profile',
+    component: Profile
+  },
+  {
+    path: '/worldcup',
+    name: 'worldcup',
+    component: Worldcup
+  }
 ]
 
 const router = new VueRouter({
