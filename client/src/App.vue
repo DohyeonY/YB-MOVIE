@@ -42,7 +42,7 @@
       </v-list>
 
       <v-list dense v-else>
-        <v-list-item link to="login">
+        <v-list-item link to="/">
           <v-list-item-action>
             <v-icon>mdi-account-check</v-icon>
           </v-list-item-action>

@@ -51,10 +51,10 @@
         </v-btn> -->
 
         <!-- detail modal -->
-        <v-dialog v-model=detail_dialog_show width="600px">
+        <v-dialog v-model=detail_dialog_show width="1500px">
           <template v-slot:activator="{ on }">
             <v-btn small v-on="on">
-              <v-icon>mdi-file-document-box-search-outline</v-icon>Detail
+              <v-icon>mdi-file-document-box-search-outline</v-icon>상세보기
             </v-btn>
           </template>
           <MovieDetailModal :movie="movie" :reviews="reviews" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeDetailDialog"/>

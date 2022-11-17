@@ -2,7 +2,7 @@
 
   <v-card class="movie-detail-modal" tile>
     <v-card-title>
-      <span class="headline">{{ movie.title }}</span>
+      <span class="headline">{{ movie.title }}</span><br>
       <span v-if="movie.title_en">({{ movie.title_en }})</span>
     </v-card-title>
 

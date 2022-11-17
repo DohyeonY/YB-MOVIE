@@ -42,7 +42,7 @@ const actions = {
         sessionStorage.removeItem('my_movies');
         sessionStorage.removeItem('my_reviews');
         sessionStorage.removeItem('username');
-        router.push('/login');
+        router.push('/');
     },
 
     pushError({ commit }, error) {
@@ -52,7 +52,7 @@ const actions = {
     login: ({ commit, getters }, credentials) => {
         commit('clearErrors')
         if (getters.isLoggedIn) {
-            router.push('/');
+            router.push('/home');
         }
         else {
                 axios.post(HOST + '/api-token-auth/', credentials)
