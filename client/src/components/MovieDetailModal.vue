@@ -11,7 +11,7 @@
 
       <v-divider></v-divider>
       <v-row justify="space-around">
-        <v-col cols="5">
+        <v-col cols="3">
           <v-img
             :src="movie.img_url"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
