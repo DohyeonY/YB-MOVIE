@@ -5,7 +5,11 @@
       <span class="sr-only">Loading</span>
     </div>
 
-    <form v-else class="login-input" @submit.prevent="login(credentials)" @keyup.enter="login(credentials)">
+    <form 
+      v-else class="login-input" 
+      @submit.prevent="login(credentials)"
+      @keyup.enter="login(credentials)"
+      >
       <div v-if="getErrors.length" class="error-list alert alert-danger">
         <ul>
           <li v-for="(error, idx) in getErrors" :key="idx">

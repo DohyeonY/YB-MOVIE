@@ -1,6 +1,6 @@
 <template>
   <div class="signup-form mx-auto">
-    <h1>회원가입 페이지</h1>
+    <h1>Signup</h1>
 
     <form class="signup-input" @submit.prevent="signup(userInput)">
       <div v-if="getErrors.length" class="error-list alert alert-danger">
@@ -11,9 +11,8 @@
       </div>
       <br>
       <div class="form-group">
-        <v-text-field v-model="userInput.username" label="아이디" name="username"></v-text-field>
+        <v-text-field v-model="userInput.username" label="아이디" name="Username"></v-text-field>
       </div>
-
       <div class="form-group">
         <v-text-field v-model="userInput.nickname" label="닉네임" name="nickname"></v-text-field>
       </div>

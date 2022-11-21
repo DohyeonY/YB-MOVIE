@@ -1,5 +1,5 @@
 <template>
-
+  
   <v-hover v-slot:default="{ hover }">
     <v-card class="movie-card">
 
