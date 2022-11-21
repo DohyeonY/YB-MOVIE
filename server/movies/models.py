@@ -53,7 +53,7 @@ class WorldcupMovies(models.Model) :
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='worldcupmovies', blank=True)
 
 class Review(models.Model):
-    content = models.CharField(max_length=40)
+    content = models.CharField(max_length=100)
     score = models.IntegerField()
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
