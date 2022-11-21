@@ -262,10 +262,8 @@ def review_create(request):
 @api_view(['GET'])
 def review_delete(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
-    if review.user == request.user:
-        review.delete()
-        return Response(status=200)
-    return Response(status=400)
+    review.delete()
+    return Response(status=200)
 
 # .../review/movie/movie_pk/
 @api_view(['GET'])

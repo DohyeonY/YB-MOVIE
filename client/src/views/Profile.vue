@@ -32,8 +32,6 @@ import { mapGetters } from 'vuex';
 import router from '../router';
 import axios from 'axios'
 
-const HOST = process.env.VUE_APP_SERVER_HOST;
-
 export default {
   name: "profile",
   
@@ -57,29 +55,27 @@ export default {
     getInfo() {
       this.username = sessionStorage.getItem('username')
       const token = sessionStorage.getItem('jwt')
+      console.log(token)
       const user_id = jwtDecode(token).user_id
       const options = {
         headers: {
-          Authorization: `JWT ${token}`
+          Authorization: `jwt ${token}`
         }
       }
-      axios.get(HOST+'/api/v1/my_movies/', options)
+      axios.get(`http://127.0.0.1:8000/api/v1/review/user/${user_id}`)
       .then(res => {
-        this.reviews_info = res.data.review_set
-        this.reviews_info.forEach(review => {
-          axios.get(`http://localhost:8000/api/v1/movie/${review.movie}/`, options)
-          .then(result => {
-            this.my_movies.push(result.data)
-            const new_info = {
-              movie: result.data.title,
-              score: review.score,
-              content: review.content
+        res.data.forEach(V => {
+          axios.get(`http://127.0.0.1:8000/api/v1/movie/${V.movie}/`)
+          .then(res => {
+            const reviewData = {
+              movie: res.data.title,
+              score: V.score,
+              content: V.content
             }
-            this.my_reviews.push(new_info)
-          })
-        })
+            this.my_reviews.push(reviewData)
+          })          
+        });
       })
-      .catch(err => console.log(err))
 
       axios.get(`http://localhost:8000/api/v1/preference/${user_id}/`, options)
       .then(res => {

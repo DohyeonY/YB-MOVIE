@@ -212,6 +212,8 @@ export default {
     },
 
     reviewDelete(event, review) {
+      console.log(event)
+      console.log(review)
       const token = sessionStorage.getItem('jwt')
       const options = {
         headers: {
