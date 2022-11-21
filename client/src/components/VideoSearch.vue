@@ -1,11 +1,12 @@
 <template>
   <div>
-    <button @click="SearchVideo">{{ movie.title }} 관련 영상 찾기</button>
+    <button @click="SearchVideo">{{ movie?.title }} 관련 영상 찾기</button>
     <VideoList
       :videos="videos"
       @goApp="goApp"
     />
     <VideoDetail
+      v-if="videos.length > 0"
       :videos="videos[0]"
     />
   </div>
@@ -32,6 +33,7 @@ export default {
   },
   methods: {
     SearchVideo() {
+      console.log(this.videos)
       axios({
         method: 'get',
         url: 'https://www.googleapis.com/youtube/v3/search',

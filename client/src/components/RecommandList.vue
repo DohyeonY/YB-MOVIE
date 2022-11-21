@@ -1,6 +1,6 @@
 <template>
   <div id="reccomand">
-    <h3>Recommend</h3>
+    <h3>{{ username }}님이 좋아할 만한 영화</h3>
     <v-carousel
       align="center"
       justify="center"
@@ -27,7 +27,8 @@ export default {
     movies: {
       type: Array,
       required: false,
-    }
+    },
+    username: String
   }
 
 }

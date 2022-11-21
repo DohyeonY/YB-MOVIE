@@ -15,16 +15,11 @@ export default new Vuex.Store({
     recommendedMovies : [],
   },
 
-
-
-
   getters : {
     isLoggedIn: state => !!state.token,
     getErrors: state => state.errors,
     isLoading: state => state.loading,
   },
-
-
 
   mutations : {
     setLoading: (state, flag) => state.loading = flag,

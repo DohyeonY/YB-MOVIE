@@ -40,9 +40,9 @@
 
         <!-- <v-btn icon>
           <v-icon>mdi-heart</v-icon>
-        </v-btn>
+        </v-btn> -->
 
-        <v-btn icon>
+        <!-- <v-btn icon>
           <v-icon>mdi-bookmark</v-icon>
         </v-btn>
 
@@ -53,7 +53,7 @@
         <!-- detail modal -->
         <v-dialog v-model=detail_dialog_show width="1500px">
           <template v-slot:activator="{ on }">
-            <v-btn small v-on="on">
+            <v-btn small v-on="on" @click="bgimg">
               <v-icon>mdi-file-document-box-search-outline</v-icon>상세보기
             </v-btn>
           </template>
@@ -94,7 +94,9 @@
     },
 
     methods: {
-
+      bgimg() {
+        // this.$emit('bgimg', movie.img_url)
+      },
       closeDetailDialog() {
         this.detail_dialog_show = false
       },
