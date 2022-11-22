@@ -48,36 +48,9 @@ def my_movies(request):
 @api_view(['GET'])
 def movie(request):
     movies = Movie.objects.all()
+
     movie_serializer = MovieSerializer(movies, many=True)
     return Response(movie_serializer.data)
-
-# @api_view(['POST'])
-# def likes(request, movie_pk, user_pk):
-#     if request.user.is_authenticated:
-#         movie = Movie.objects.get(pk=movie_pk)
-#         if movie.like_users.filter(pk=request.user.pk).exists():
-#             movie.like_users.remove(request.user)
-#             like = False
-#         else:
-#             movie.like_users.add(request.user)
-#             like = True
-#         return Response(like)
-
-@api_view(['POST'])
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
-def movie_like(request, my_pk, movie_title):
-  movie = get_object_or_404(Movie, title=movie_title)
-  me = get_object_or_404(get_user_model(), pk=my_pk)
-  if me.like_movies.filter(pk=movie.pk).exists():
-      me.like_movies.remove(movie.pk)
-      liking = False
-      
-  else:
-      me.like_movies.add(movie.pk)
-      liking = True
-  
-  return Response(liking)
 
 # .../movie/pk/
 @api_view(['GET'])
@@ -315,6 +288,7 @@ def review_user(request, user_pk):
     reviews = user.review_set
     reviews_serializer = ReviewSerializer(reviews, many=True)
     return Response(reviews_serializer.data)
+    
 
 @api_view(['POST'])
 def likemovie(request, user_pk) :
@@ -357,6 +331,22 @@ def sendlikemovie(request, user_pk) :
     # likemovie_serializer = LikeMovieSerializer(user)
     return Response(likemovie_serializer.data)
 
+@api_view(['POST'])
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def movie_like(request, my_pk, movie_title):
+  movie = get_object_or_404(Movie, title=movie_title)
+  me = get_object_or_404(get_user_model(), pk=my_pk)
+  if me.like_movies.filter(pk=movie.pk).exists():
+      me.like_movies.remove(movie.pk)
+      liking = False
+      
+  else:
+      me.like_movies.add(movie.pk)
+      liking = True
+  
+  return Response(liking)
+  
 # for infinite scroll(Pagination)
 class MoviePagination(pagination.PageNumberPagination):
     page_size = 20
@@ -366,4 +356,3 @@ class MovieListAPI(generics.ListAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     pagination_class = MoviePagination
-

@@ -8,13 +8,21 @@
             <v-overlay
             v-if="hover"
             absolute
-            color="#036358"
+            color="#000000"
             >
-            <!-- <v-btn class="st-font" style="margin-bottom:10px" @click="movieDetail()">See more info</v-btn> -->
+            
+            <br>
+            <v-btn 
+              :href = "`https://www.themoviedb.org/movie/${movie.id}-${movie.original_title}?language=ko`"
+              target="_blank"
+              class="st-font" style="margin-bottom:10px" >
+              TMDB 정보
+            </v-btn>
+
             <div>
-              <span v-for="(i, idx) in rating" :key="idx">
+              <!-- <span v-for="(i, idx) in rating" :key="idx">
                 <i style="color:yellow;" class="fas fa-star"></i>
-              </span>
+              </span> -->
             </div>
           </v-overlay>
         </v-fade-transition>
@@ -23,6 +31,7 @@
       </v-card>  
       </template>
     </v-hover>
+
   </div>
 </template>
 
@@ -50,6 +59,8 @@ export default {
       liking: '',
       numLike: '',
       rating: Number(this.movie.vote_average),
+      movieId : null,
+      movieTitleEn : null,
     }
   },
   props: {

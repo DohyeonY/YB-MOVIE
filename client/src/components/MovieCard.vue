@@ -1,44 +1,48 @@
 <template>
   
-  <v-hover v-slot:default="{ hover }">
+  <v-hover style="margin: 20px;" v-slot:default="{ hover }">
     <v-card class="movie-card">
 
       <v-img
         :src="movie.img_url"
         gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-        height="200px"
+        height="550px"
       >
       </v-img>
 
 
       <v-expand-transition>
-        <div 
-          v-if="hover || rating !== 0"
-          class="d-flex transition-fast-in-fast-out black darken-2 text-center display-1 v-card--reveal"
-          @click.stop="review_dialog_show=true"
-        >
-          <v-rating
-            v-model="rating"
-            color="orange"
-            background-color="orange lighten-3"
-            size="21.6"
-          ></v-rating>
-        </div>
-      </v-expand-transition>
+        <v-fade-transition>
+            <v-overlay
+            v-if="hover"
+            absolute
+            color="#000000"
+            >
+            
+            <br>
+              <div 
+                v-if="hover || rating !== 0"
+                class="d-flex transition-fast-in-fast-out black darken-2 text-center display-1 "
+                @click.stop="review_dialog_show=true"
+              >
+                <v-rating
+                  v-model="rating"
+                  color="orange"
+                  background-color="orange lighten-3"
+                  size="30.6"
+                ></v-rating>
+              </div>
+              <br>
 
-      <v-dialog
-        v-model="review_dialog_show"
-        max-width="500"
-      >
-        <MovieReviewModal :rating="rating" :movie="movie" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeReviewDialog"/>
-      </v-dialog>
-
-
-      <v-card-actions>
-
-        <v-spacer></v-spacer>
-
-        <v-btn 
+            <div>
+              <span v-for="(i, idx) in rating" :key="idx">
+                <i style="color:yellow;" class="fas fa-star"></i>
+              </span>
+            </div>
+            <v-btn small @click.stop="detail_dialog_show=true">
+              <v-icon>mdi-file-document-box-search-outline</v-icon>상세보기
+            </v-btn>
+            <v-btn 
         v-if="liking"
         @click="like"
         icon>
@@ -51,30 +55,52 @@
         icon>
           <v-icon>mdi-heart</v-icon>
         </v-btn>
+          </v-overlay>
+        </v-fade-transition>
+        <!-- <div 
+          v-if="hover || rating !== 0"
+          class="transition-fast-in-fast-out black darken-2 text-center display-1 v-card--reveal"
+          @click.stop="review_dialog_show=true"
+        >
+          <v-rating
+            v-model="rating"
+            color="orange"
+            background-color="orange lighten-3"
+            size="30.6"
+          ></v-rating>
+        </div> -->
+      </v-expand-transition>
+      
+      <v-dialog
+        v-model="review_dialog_show"
+        max-width="500"
+        >
+        <MovieReviewModal :rating="rating" :movie="movie" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeReviewDialog"/>
+      </v-dialog>
+      <v-dialog 
+      v-model="detail_dialog_show"
+      width="1500px">
 
-        <!-- <v-btn icon>
-          <v-icon>mdi-bookmark</v-icon>
-        </v-btn>
+        <MovieDetailModal :movie="movie" :reviews="reviews" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeDetailDialog"/>
+      </v-dialog>
 
-        <v-btn icon>
-          <v-icon>mdi-share-variant</v-icon>
-        </v-btn> -->
-
-        <!-- detail modal -->
-        <v-dialog v-model=detail_dialog_show width="1500px">
-          <template v-slot:activator="{ on }">
-            <v-btn small v-on="on">
-              <v-icon>mdi-file-document-box-search-outline</v-icon>상세보기
-            </v-btn>
-          </template>
-          <MovieDetailModal :movie="movie" :reviews="reviews" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeDetailDialog"/>
-        </v-dialog>
-
-
-      </v-card-actions>
+      <!-- <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      
+      <v-btn icon>
+        <v-icon>mdi-bookmark</v-icon>
+      </v-btn>
+      
+      <v-btn icon>
+        <v-icon>mdi-share-variant</v-icon>
+      </v-btn> -->
+      
+      <!-- detail modal -->
+      
     </v-card>
   </v-hover>
-
+  
 </template>
 
 <script>
@@ -104,6 +130,7 @@
         required: false,
       }
     },
+
     methods: {
       like: function () {
       const token = sessionStorage.getItem('jwt')
@@ -181,8 +208,8 @@
     created() {
       this.check_like()
     }
-  }
 
+  }
 </script>
 
 <style>

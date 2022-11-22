@@ -1,25 +1,24 @@
 <template>
-  <!-- <v-responsive
-    class="overflow-y-auto"
-    max-height="600"
-  > -->
+
   <div class="movie-list">
-    <v-card
+    <!-- <v-card
       class="mx-auto"
       max-width="800"
-    >
-      <v-toolbar
+    > -->
+      <!-- <v-toolbar
         color="grey darken-1"
         dark
       >
         <v-toolbar-title>Movie List</v-toolbar-title>
 
-        <v-spacer></v-spacer>
+        <v-spacer></v-spacer> -->
 
-        <v-btn icon>
+        <v-btn icon style="float: right;">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
-      </v-toolbar>
+        <br>
+        <br>
+      <!-- </v-toolbar> -->
 
       <v-container fluid v-if="movies.length">
         <!-- <v-lazy> -->
@@ -41,7 +40,7 @@
         </v-row>
         <!-- </v-lazy> -->
       </v-container>
-    </v-card>
+    <!-- </v-card> -->
 
   </div>
   <!-- </v-responsive> -->

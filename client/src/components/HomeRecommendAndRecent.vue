@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h2 v-if="recommendedMovies.length" 
-    style="text-align:center;">추천 영화</h2>
+    <h2 v-if="recommendedMovies.length" style="text-align:center;">추천 영화</h2>
     <vue-glide v-if="recommendedMovies.length"
       class="glide__track"
       data-glide-el="track"

@@ -8,7 +8,7 @@
           <th class="text-left">점수</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody>        
         <tr v-for="review in my_reviews" :key="review.pk">
           <td>{{ review.movie }}</td>
           <td>{{ review.content }}</td>

@@ -78,4 +78,3 @@ class Scoring(models.Model):
 class LikeMovie(models.Model) :
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     likemovie = models.CharField(max_length=50, blank=True)
-

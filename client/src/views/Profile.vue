@@ -2,19 +2,28 @@
   <div class="mx-auto" id="profile">
     
     <v-container>
-      <h2>{{ username }}'s</h2>
       <v-row
         justify="center"
       >
         <v-col cols="3">
-          <h3>Movie List</h3>
+          <h1>내 프로필</h1>
           <Timeline :my_movies="my_movies"/>
         </v-col>
         <v-col cols="8">
-          <h3>Review List</h3>
-          <ReviewList :my_reviews="my_reviews"/>
+          <div>
+            <h3>댓글 작성 목록</h3>
+            <ReviewList :my_reviews="my_reviews"/>
+            <div class="text-center">
+              <v-pagination
+                v-model="page"
+                :length="5"
+              >
+                
+              </v-pagination>
+            </div>
+          </div>
           <br>
-          <RecommandList :movies="reccomands"/>
+          <LikeMovieList :movies="movies"/>
         </v-col>
       </v-row>
     </v-container>
@@ -26,7 +35,7 @@
 <script>
 import Timeline from '../components/Timeline'
 import ReviewList from '../components/ReviewList'
-import RecommandList from '../components/RecommandList'
+import LikeMovieList from '../components/LikeMovieList'
 import jwtDecode from 'jwt-decode'
 import { mapGetters } from 'vuex';
 import router from '../router';
@@ -38,24 +47,27 @@ export default {
   data () {
     return {
       username: null,
+      nickname: null,
       my_reviews: [],
       my_movies: [],
       reviews_info: [],
       reccomands: [],
+      movies: [],
+      page_num: 1,
+      page: 1,
     }
   },
 
   components: {
     Timeline,
     ReviewList,
-    RecommandList,
+    LikeMovieList,
   },
 
   methods: {
     getInfo() {
       this.username = sessionStorage.getItem('username')
       const token = sessionStorage.getItem('jwt')
-      console.log(token)
       const user_id = jwtDecode(token).user_id
       const options = {
         headers: {
@@ -76,10 +88,16 @@ export default {
           })          
         });
       })
-
-      axios.get(`http://localhost:8000/api/v1/preference/${user_id}/`, options)
+      axios.get(`http://localhost:8000/api/v1/movie/list/?page=${this.page_num}`, options)
       .then(res => {
-        this.reccomands = res.data
+        const user_id = jwtDecode(token).user_id
+        const movies = this.movies.concat(res.data.results)
+        movies.forEach(V => {
+          if (V.like_users.includes(user_id)) {
+            this.movies.push(V)
+            this.my_movies.push(V)
+          }
+        });
       })
     }
   }, 

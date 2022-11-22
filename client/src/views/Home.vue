@@ -57,9 +57,8 @@ export default {
       .catch(error => {
         console.log(error.response)
       })
-    }, // end of addMovies()
-
-  }, // end of methods
+    },
+  },
 
   watch: {
     bottom(bottom) {
