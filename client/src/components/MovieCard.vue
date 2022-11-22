@@ -188,8 +188,6 @@
         const token = sessionStorage.getItem('jwt')
         const user_id = jwtDecode(token).user_id
         this.me = user_id
-        console.log(this.movie.like_users)
-        console.log(this.me)
           if (this.movie.like_users.includes(this.me)) {
           this.liking = true        
         } else {

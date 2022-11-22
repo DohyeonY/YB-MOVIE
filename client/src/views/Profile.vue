@@ -10,16 +10,33 @@
           <Timeline :my_movies="my_movies"/>
         </v-col>
         <v-col cols="8">
-          <div>
+          <!-- <div> -->
             <h3>댓글 작성 목록</h3>
-            <ReviewList :my_reviews="my_reviews"/>
+            <!-- <ReviewList :my_reviews="my_reviews"/>
             <div class="text-center">
               <v-pagination
                 v-model="page"
                 :length="5"
-              >
-                
+              >                
               </v-pagination>
+            </div>
+          </div>
+          <ReviewList :my_reviews="my_reviews"/> -->
+          <div>
+            <v-data-table
+              :headers="headers"
+              :items="desserts"
+              :page.sync="page"
+              :items-per-page="itemsPerPage"
+              hide-default-footer
+              class="elevation-1"
+              @page-count="pageCount = $event"
+            ></v-data-table>
+            <div class="text-center pt-2">
+              <v-pagination
+                v-model="page"
+                :length="pageCount"
+              ></v-pagination>
             </div>
           </div>
           <br>
@@ -34,7 +51,7 @@
 
 <script>
 import Timeline from '../components/Timeline'
-import ReviewList from '../components/ReviewList'
+// import ReviewList from '../components/ReviewList'
 import LikeMovieList from '../components/LikeMovieList'
 import jwtDecode from 'jwt-decode'
 import { mapGetters } from 'vuex';
@@ -55,12 +72,20 @@ export default {
       movies: [],
       page_num: 1,
       page: 1,
+      pageCount: 0,
+      itemsPerPage: 5,
+      headers: [
+        { text: '영화제목', value: '영화제목' },
+        { text: '댓글내용', value: '댓글내용' },
+        { text: '점수', value: '점수' },
+      ],
+      desserts: [],
     }
   },
 
   components: {
     Timeline,
-    ReviewList,
+    // ReviewList,
     LikeMovieList,
   },
 
@@ -80,11 +105,11 @@ export default {
           axios.get(`http://127.0.0.1:8000/api/v1/movie/${V.movie}/`)
           .then(res => {
             const reviewData = {
-              movie: res.data.title,
-              score: V.score,
-              content: V.content
+              영화제목: res.data.title,
+              점수: V.score,
+              댓글내용: V.content
             }
-            this.my_reviews.push(reviewData)
+            this.desserts.push(reviewData)
           })          
         });
       })
@@ -99,7 +124,7 @@ export default {
           }
         });
       })
-    }
+    },
   }, 
 
   computed: {

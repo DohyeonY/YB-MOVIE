@@ -16,8 +16,7 @@
             <v-rating
               :value="review.score"
               color="orange"
-              readonly
-              
+              readonly              
               >
             </v-rating>
           </td>
