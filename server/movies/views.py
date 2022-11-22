@@ -3,13 +3,15 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from rest_framework.permissions import AllowAny # 회원가입은 인증 X
+from rest_framework.permissions import AllowAny, IsAuthenticated # 회원가입은 인증 X
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 
 from .models import *
 from .serializers import *
 from rest_framework import pagination, generics, mixins
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 import random
 
@@ -33,8 +35,12 @@ def user_info(request, user_pk):
 
 # .../my_movies/
 @api_view(['GET'])
+# 어나니머스유저 안나게 하는법
+# @authentication_classes([JSONWebTokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def my_movies(request):
     user = request.user
+    print(request.user)
     user_serializer = UserSerializer(user)
     return Response(user_serializer.data)
 
@@ -42,9 +48,36 @@ def my_movies(request):
 @api_view(['GET'])
 def movie(request):
     movies = Movie.objects.all()
-
     movie_serializer = MovieSerializer(movies, many=True)
     return Response(movie_serializer.data)
+
+# @api_view(['POST'])
+# def likes(request, movie_pk, user_pk):
+#     if request.user.is_authenticated:
+#         movie = Movie.objects.get(pk=movie_pk)
+#         if movie.like_users.filter(pk=request.user.pk).exists():
+#             movie.like_users.remove(request.user)
+#             like = False
+#         else:
+#             movie.like_users.add(request.user)
+#             like = True
+#         return Response(like)
+
+@api_view(['POST'])
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def movie_like(request, my_pk, movie_title):
+  movie = get_object_or_404(Movie, title=movie_title)
+  me = get_object_or_404(get_user_model(), pk=my_pk)
+  if me.like_movies.filter(pk=movie.pk).exists():
+      me.like_movies.remove(movie.pk)
+      liking = False
+      
+  else:
+      me.like_movies.add(movie.pk)
+      liking = True
+  
+  return Response(liking)
 
 # .../movie/pk/
 @api_view(['GET'])
@@ -280,10 +313,49 @@ def review_movie(request, movie_pk):
 def review_user(request, user_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     reviews = user.review_set
-
     reviews_serializer = ReviewSerializer(reviews, many=True)
     return Response(reviews_serializer.data)
 
+@api_view(['POST'])
+def likemovie(request, user_pk) :
+    data = request.data
+    print(data['first'])
+    print(data['second'])
+    user = get_object_or_404(get_user_model(), pk=user_pk)
+    # if len(LikeMovie.objects.filter(user_id=user).all()) >= 2 :
+    #     while len(LikeMovie.objects.filter(user_id=user).all()) != 0 :
+    LikeMovie.objects.all().filter(user_id=user).delete()
+        
+    # nulldata = LikeMovie.objects.filter(user_id=user).delete()
+
+    serializer = LikeMovieSerializer(data=data['first'])
+    serializer1 = LikeMovieSerializer(data=data['second'])
+    if serializer.is_valid() and serializer1.is_valid():
+        serializer.save(user=user)
+        serializer1.save(user=user)
+        return Response(serializer.data)
+    # user = get_object_or_404(get_user_model(), pk=user_pk)
+    # likemovie_serializer = LikeMovieSerializer(data, user, many=True)
+    # likemovie_serializer.save()
+    return Response(status=400)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def sendlikemovie(request, user_pk) :
+    # print(request.data)
+    # user_pk = request.data
+    # user = get_object_or_404(get_user_model(), pk=user_pk)
+    genres = Genre.objects.all()
+    genres_serializer = GenreSerializer(genres, many=True)
+    likemovie = LikeMovie.objects.all().filter(user_id=user_pk)
+    # user.likemovie_set
+    print(likemovie)
+
+    likemovie_serializer = LikeMovieSerializer(likemovie, many=True)
+    print(likemovie_serializer)
+    # user = get_object_or_404(get_user_model(), pk=user_pk)
+    # likemovie_serializer = LikeMovieSerializer(user)
+    return Response(likemovie_serializer.data)
 
 # for infinite scroll(Pagination)
 class MoviePagination(pagination.PageNumberPagination):
@@ -294,3 +366,4 @@ class MovieListAPI(generics.ListAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     pagination_class = MoviePagination
+

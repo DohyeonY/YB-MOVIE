@@ -34,6 +34,7 @@ class Movie(models.Model):
     open_date = models.CharField(max_length=50)
     genres = models.ManyToManyField(Genre, related_name='movies', blank=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movies', blank=True)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
     
     class Meta:
         ordering=['-open_date', '-rate']
@@ -73,3 +74,8 @@ class Scoring(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
+
+class LikeMovie(models.Model) :
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    likemovie = models.CharField(max_length=50, blank=True)
+

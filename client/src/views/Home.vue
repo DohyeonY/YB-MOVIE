@@ -1,6 +1,9 @@
 <template>
   <v-col class="home">
     <!-- <h1>Movie List</h1> -->
+    <HomeRecommendAndRecent/>
+    <hr>
+    <br>
     <MovieList :movies="movies"/>
   </v-col>
 </template>
@@ -8,6 +11,7 @@
 <script>
 // @ is an alias to /src
 import MovieList from '@/components/MovieList.vue'
+import HomeRecommendAndRecent from '@/components/HomeRecommendAndRecent.vue'
 // import router from '@/router'
 import axios from 'axios'
 
@@ -25,6 +29,7 @@ export default {
 
   components: {
     MovieList,
+    HomeRecommendAndRecent,
   },
 
   methods: {

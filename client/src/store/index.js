@@ -15,11 +15,16 @@ export default new Vuex.Store({
     recommendedMovies : [],
   },
 
+
+
+
   getters : {
     isLoggedIn: state => !!state.token,
     getErrors: state => state.errors,
     isLoading: state => state.loading,
   },
+
+
 
   mutations : {
     setLoading: (state, flag) => state.loading = flag,
@@ -39,7 +44,7 @@ export default new Vuex.Store({
         // console.log(11)
         movies.forEach(ele => {
             if (ele.vote_average > 7.0) {
-                console.log(ele)
+                // console.log(ele)
                 state.recommendedMovies.push(ele)
             }
         })

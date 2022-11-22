@@ -2,7 +2,7 @@
   <div class="mx-auto" id="profile">
     
     <v-container>
-      <h2>{{ username }}님의 프로필</h2>
+      <h2>{{ username }}'s</h2>
       <v-row
         justify="center"
       >
@@ -11,15 +11,10 @@
           <Timeline :my_movies="my_movies"/>
         </v-col>
         <v-col cols="8">
-          <h3>댓글 작성 목록</h3>
-          <ReviewList 
-            :my_reviews="my_reviews"
-          />
+          <h3>Review List</h3>
+          <ReviewList :my_reviews="my_reviews"/>
           <br>
-          <RecommandList 
-            :movies="reccomands"
-            :username="username"
-          />
+          <RecommandList :movies="reccomands"/>
         </v-col>
       </v-row>
     </v-container>

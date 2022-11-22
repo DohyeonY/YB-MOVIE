@@ -38,9 +38,19 @@
 
         <v-spacer></v-spacer>
 
-        <!-- <v-btn icon>
+        <v-btn 
+        v-if="liking"
+        @click="like"
+        icon>
+          <v-icon style="color:red">mdi-heart</v-icon>
+        </v-btn>
+
+        <v-btn 
+        v-if="!liking"
+        @click="like"
+        icon>
           <v-icon>mdi-heart</v-icon>
-        </v-btn> -->
+        </v-btn>
 
         <!-- <v-btn icon>
           <v-icon>mdi-bookmark</v-icon>
@@ -53,7 +63,7 @@
         <!-- detail modal -->
         <v-dialog v-model=detail_dialog_show width="1500px">
           <template v-slot:activator="{ on }">
-            <v-btn small v-on="on" @click="bgimg">
+            <v-btn small v-on="on">
               <v-icon>mdi-file-document-box-search-outline</v-icon>상세보기
             </v-btn>
           </template>
@@ -79,6 +89,8 @@
       rating: 0,
       detail_dialog_show: false,
       review_dialog_show: false,
+      liking: false,
+      me: null,
     }),
 
     components: {
@@ -92,11 +104,26 @@
         required: false,
       }
     },
-
     methods: {
-      bgimg() {
-        // this.$emit('bgimg', movie.img_url)
-      },
+      like: function () {
+      const token = sessionStorage.getItem('jwt')
+      const user_id = jwtDecode(token).user_id
+      const options = {
+          headers: {
+            Authorization: 'JWT ' + token
+          }
+        }
+      const item = {
+        myId: user_id,
+        movieId: this.movie.id,
+      }
+      axios.post(`http://localhost:8000/api/v1/${user_id}/${this.movie.title}/like/`, item, options)
+      .then((res) => {
+        // console.log(res)
+        this.liking = res.data
+        // console.log(this.movie.like_users)   
+      })
+    },
       closeDetailDialog() {
         this.detail_dialog_show = false
       },
@@ -129,8 +156,19 @@
             })
           })
         })
-      } // end of ratingCheck()
-
+      }, // end of ratingCheck()
+      check_like() {
+        const token = sessionStorage.getItem('jwt')
+        const user_id = jwtDecode(token).user_id
+        this.me = user_id
+        console.log(this.movie.like_users)
+        console.log(this.me)
+          if (this.movie.like_users.includes(this.me)) {
+          this.liking = true        
+        } else {
+          this.liking = false
+        }
+      }      
     },
 
     watch: {
@@ -139,9 +177,12 @@
     
     mounted() {
       this.ratingCheck()
+    },
+    created() {
+      this.check_like()
     }
-
   }
+
 </script>
 
 <style>

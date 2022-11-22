@@ -1,5 +1,5 @@
 <template>
-  <v-container class="worldcup">
+  <v-main class="worldcup">
 
     <div v-if="!finishFlag">
       <h1>취향에 맞는 영화를 추천해 드리기 위해 </h1> 
@@ -7,7 +7,9 @@
       <hr>
       <br>
       <div v-if="!left">
-        <v-btn v-if="roundNum < 3" @click="next">결승 시작하기</v-btn>
+        <v-btn 
+          v-if="roundNum < 3" 
+          @click="getThreeMovies">결승 시작하기</v-btn>
         <v-btn v-else @click="next">{{ roundNum }}강 시작하기</v-btn>
       </div>
       <v-row
@@ -41,21 +43,62 @@
         </v-col>
       </v-row>
       <br>
-      <div v-for="movie in getRecommendedMovies" :key="movie.id"  style="height:200px; width:150px;">
-        <!-- {{ movie }} -->
-        <div class="col" style="height:200px; width:150px;">
-          <div class="card h-25">
-            <img :src= "`https://image.tmdb.org/t/p/original${movie.poster_path}`" alt="poster" style="height:170px; width:150px;">
-            <div class="card-body">
-              <h5 class="card-title text-center fw-bold"> 제목 : {{ movie.title }}</h5>
-              <p class="card-text">⭐ 평점 : {{ movie.vote_average }}</p>
+
+      <!-- <v-row
+        align="center"
+        justify="center"
+        v-for="movie in getRecommendedMovies" 
+        :key="movie.id"  
+      >
+        <v-col cols="4" align="center">
+          <WorldcupChoice id="left" :movie="left" @choiceEvent="leftChoice" />
+        </v-col> -->
+
+      <!-- </v-row> -->
+
+      <h2>당신에게 추천해 드리는 영화</h2>
+      <div class="container text-center">
+        <div class="row">
+          <br>
+          <div class="col-4" 
+            v-for="movie in worldcupRecommendThree" 
+            :key="movie.id"
+            >
+            <div>
+              <!-- {{ movie }} -->
+              <div style="height:200px; width:150px;">
+                <div>
+                  <img :src= "`https://image.tmdb.org/t/p/original${movie.poster_path}`" alt="poster" style="height:100%; width:100%;">
+                  <br>
+                  <br>
+                  <!-- {{ movie.title}} -->
+                  <!-- <div class="card-body">
+                    <h5 class="card-title text-center fw-bold">{{ movie.title }}</h5>
+                    <p class="card-text">⭐ 평점 : {{ movie.vote_average }}</p>
+                  </div> -->
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+
+      <!-- <div v-for="movie in getRecommendedMovies" :key="movie.id"  style="height:200px; width:150px;">
+      
+        <div class="col" style="height:200px; width:150px;">
+          <div class="card h-50">
+            <img :src= "`https://image.tmdb.org/t/p/original${movie.poster_path}`" alt="poster" style="height:170px; width:150px;">
+            <div class="card-body">
+              <h5 class="card-title text-center fw-bold">{{ movie.title }}</h5>
+              <p class="card-text">⭐ 평점 : {{ movie.vote_average }}</p>
+            </div>
+          </div>
+        </div>
+      </div> -->
     </div>
 
-  </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -73,6 +116,9 @@ export default {
       right: null,
       finishFlag: false,
       lastTwoGenre: [],
+      worldcupRecommend : [],
+      worldcupRecommendThree : [],
+      newBox: [],
     }
   },
 
@@ -82,11 +128,28 @@ export default {
   computed : {
     getRecommendedMovies () {
       console.log(this.$store.state.recommendedMovies)
+      // this.worldcupRecommend = this.$store.state.recommendedMovies
       return this.$store.state.recommendedMovies
     },
   },
   
   methods: {
+    getThreeMovies() {
+      this.worldcupRecommend = this.$store.state.recommendedMovies
+      let count = this.worldcupRecommend.length
+      for (let i = 0; i < 3 ; i++) {
+      const j = Math.floor(Math.random() * count)
+      const k = Math.floor(Math.random() * count)
+      const temp = this.worldcupRecommend[j]
+      this.worldcupRecommend[j] = this.worldcupRecommend[k]
+      this.worldcupRecommend[k] = temp
+      this.worldcupRecommendThree[0] = this.worldcupRecommend[0]
+      this.worldcupRecommendThree[1] = this.worldcupRecommend[1]
+      this.worldcupRecommendThree[2] = this.worldcupRecommend[2]
+
+      }
+      this.next()
+    },
     randomMovieCall() {
       const token = sessionStorage.getItem('jwt')
       const options = {
@@ -155,6 +218,7 @@ export default {
   watch: {
     //라운드 종료 판별
     left: function() {
+
       if (this.current_round.length === 0 && !this.left) {
         // 첫 라운드 이후 매 라운드마다 랜덤하게 셔플
         let count = this.next_round.length
@@ -170,19 +234,29 @@ export default {
         this.current_round = this.next_round
         this.next_round = []
         this.roundNum = this.current_round.length
+        const token = sessionStorage.getItem('jwt')
+        const user_id = jwtDecode(token).user_id
+        const options = {
+          headers: {
+            Authorization: 'JWT ' + token
+          }
+        }
         if (this.current_round.length === 2) {
           this.current_round.forEach(ele => {
             // console.log(ele)
             this.$store.dispatch('recommendedMovies', ele.tmdb)
             // console.log(this.$store.state.recommendedMovies)
-             //취향점수 반영을 위한 API 호출
-            const token = sessionStorage.getItem('jwt')
-            const user_id = jwtDecode(token).user_id
-            const options = {
-              headers: {
-                Authorization: 'JWT ' + token
-              }
+            const tmdb = {
+              likemovie : ele.tmdb
             }
+            this.newBox.push(tmdb)
+            
+
+            
+            
+            //취향점수 반영을 위한 API 호출
+            // const token = sessionStorage.getItem('jwt')
+            // const user_id = jwtDecode(token).user_id
             // console.log(this.left)
             const data= {
               value: 8,
@@ -192,12 +266,26 @@ export default {
             // console.log(data)
             axios.post('http://localhost:8000/api/v1/preference/', data, options)
             // .then(res=>{
+              //   console.log(res)
+              //   // this.$router.push({name : 'home'})
+              // })
+              // this.lastTwoGenre.value.push(ele.genres)
+            })
+            console.log(111)
+            const sendData = {
+              'first': this.newBox[0],
+              'second': this.newBox[1]
+            }
+
+            console.log(sendData)
+            console.log(111)
+            axios.post(`http://localhost:8000/api/v1/likemovie/${user_id}/`, sendData, options)
+            // .then(res => {
             //   console.log(res)
-            //   // this.$router.push({name : 'home'})
             // })
-            // this.lastTwoGenre.value.push(ele.genres)
-          })
-        // console.log(this.lastTwoGenre)
+            // .catch(error => {
+            //   console.log(error)
+            // })
         }
       }
     },

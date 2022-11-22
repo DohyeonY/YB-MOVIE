@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -38,19 +38,20 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
-
 # JWT 설정
 JWT_AUTH = {
 		# JWT를 encrypt함.절대 외부 노출 금지, default는 settings.SECRET_KEY
     'JWT_SECRET_KEY': SECRET_KEY,
-		# 토큰 해싱 알고리즘(HMAC using SHA-256 hash algorithm (default)
+	# 	# 토큰 해싱 알고리즘(HMAC using SHA-256 hash algorithm (default)
     'JWT_ALGORITHM': 'HS256',
-		# 토큰 갱신 허용 여부
+	# 	# 토큰 갱신 허용 여부
     'JWT_ALLOW_REFRESH': True,
 		# 1주일간 유효한 토큰 - default는 5분
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
 		# 28일 마다 토큰이 갱신(유효 기간 연장시)
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
+
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
 INSTALLED_APPS = [
@@ -136,9 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-}
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

@@ -66,7 +66,7 @@
       clipped-left
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>Movie Cave</v-toolbar-title>
+      <v-toolbar-title>Hello</v-toolbar-title>
     </v-app-bar>
 
     <v-content class="row">
@@ -86,7 +86,7 @@
     </v-content>
 
     <v-footer app>
-      <span>&copy; 2019 Y2GB</span>
+      <span>&copy; 8th YB</span>
     </v-footer>
   </v-app>
 </template>
