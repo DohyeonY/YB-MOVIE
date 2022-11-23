@@ -5,7 +5,6 @@
 		elevation="2"
 		>월드컵 다시하기</v-btn>
 	</div>
-	
 </template>
 
 <script>
@@ -20,7 +19,7 @@ export default {
 		goWorldcup() {
 			this.$router.push({ name: 'worldcup' })
 		}
-	}
+	},
 };
 </script>
 

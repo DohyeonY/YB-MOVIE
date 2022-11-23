@@ -40,12 +40,15 @@ def user_info(request, user_pk):
 # @permission_classes([IsAuthenticated])
 def my_movies(request):
     user = request.user
+    print()
     print(request.user)
+    print()
     user_serializer = UserSerializer(user)
     return Response(user_serializer.data)
 
 # .../movie/
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def movie(request):
     movies = Movie.objects.all()
 
@@ -286,9 +289,8 @@ def review_movie(request, movie_pk):
 def review_user(request, user_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     reviews = user.review_set
-    reviews_serializer = ReviewSerializer(reviews, many=True)
+    reviews_serializer = GetReviewSerializer(reviews, many=True)
     return Response(reviews_serializer.data)
-    
 
 @api_view(['POST'])
 def likemovie(request, user_pk) :
@@ -346,6 +348,44 @@ def movie_like(request, my_pk, movie_title):
       liking = True
   
   return Response(liking)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def searchmovie(request) :
+    movie = Movie.objects.all()
+    # mdata = []
+    search_serializers = MovieSerializer(movie, many=True)
+    # for i in search_serializers.data :
+    #     if i.title in request.data :
+    #         mdata.append(i)
+    # print()
+    # print()
+    # print()
+    # print()
+    # print(search_serializers)
+    # # print(search)
+    # print()
+    # print()
+    # print()
+    # print()
+    # print()
+    return Response(search_serializers.data)
+
+@api_view(['POST'])
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def movie_like(request, my_pk, movie_title):
+  movie = get_object_or_404(Movie, title=movie_title)
+  me = get_object_or_404(get_user_model(), pk=my_pk)
+  if me.like_movies.filter(pk=movie.pk).exists():
+      me.like_movies.remove(movie.pk)
+      liking = False
+
+  else:
+      me.like_movies.add(movie.pk)
+      liking = True
+
+  return Response(liking)
   
 # for infinite scroll(Pagination)
 class MoviePagination(pagination.PageNumberPagination):
@@ -356,3 +396,4 @@ class MovieListAPI(generics.ListAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     pagination_class = MoviePagination
+

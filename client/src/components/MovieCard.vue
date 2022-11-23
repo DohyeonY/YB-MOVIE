@@ -43,9 +43,9 @@
               <v-icon>mdi-file-document-box-search-outline</v-icon>상세보기
             </v-btn>
             <v-btn 
-        v-if="liking"
-        @click="like"
-        icon>
+            v-if="liking"
+            @click="like"
+            icon>
           <v-icon style="color:red">mdi-heart</v-icon>
         </v-btn>
 
@@ -104,10 +104,10 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import jwtDecode from 'jwt-decode'
-  import MovieDetailModal from '@/components/MovieDetailModal.vue'
-  import MovieReviewModal from '@/components/MovieReviewModal.vue'
+import axios from 'axios'
+import jwtDecode from 'jwt-decode'
+import MovieDetailModal from '@/components/MovieDetailModal.vue'
+import MovieReviewModal from '@/components/MovieReviewModal.vue'
 
   export default {
     data: () => ({
@@ -188,6 +188,8 @@
         const token = sessionStorage.getItem('jwt')
         const user_id = jwtDecode(token).user_id
         this.me = user_id
+        // console.log(this.movie.like_users)
+        // console.log(this.me)
           if (this.movie.like_users.includes(this.me)) {
           this.liking = true        
         } else {

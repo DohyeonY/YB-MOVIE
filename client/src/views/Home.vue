@@ -57,8 +57,9 @@ export default {
       .catch(error => {
         console.log(error.response)
       })
-    },
-  },
+    }, 
+
+  }, 
 
   watch: {
     bottom(bottom) {

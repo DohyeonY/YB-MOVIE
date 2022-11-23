@@ -58,7 +58,8 @@
                     <i style="font-size:12px;"> by {{ review.username }}</i>
                   </div>
                   <div v-if="user_pk==review.user" >
-                    <v-btn small v-on:click="reviewDelete($event, review)">
+                    <v-btn small v-on:click="reviewDelete($event, review)"
+                    @click="asd">
                       삭제
                     </v-btn>
                   </div>
@@ -157,6 +158,9 @@ export default {
       VideoSearch,
   },
   methods: {
+    asd() {
+      return
+    },
     isSelected: function () {
       return Object.keys(this.video).length
     },
@@ -234,6 +238,7 @@ export default {
     this.getUserPk()
     // this.reviewsCall()
   },
+
 
 }
 </script>
