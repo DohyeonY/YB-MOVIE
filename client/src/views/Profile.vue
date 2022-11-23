@@ -5,23 +5,12 @@
       <v-row
         justify="center"
       >
-        <v-col cols="3">
+        <v-col cols="3" style="margin-top: 30px;">
           <h1>내 프로필</h1>
           <Timeline :my_movies="my_movies"/>
         </v-col>
-        <v-col cols="8">
-          <!-- <div> -->
-            <h3>댓글 작성 목록</h3>
-            <!-- <ReviewList :my_reviews="my_reviews"/>
-            <div class="text-center">
-              <v-pagination
-                v-model="page"
-                :length="5"
-              >                
-              </v-pagination>
-            </div>
-          </div>
-          <ReviewList :my_reviews="my_reviews"/> -->
+        <v-col cols="8" style="margin-top: 50px;">
+          <h3>댓글 작성 목록</h3>
           <div>
             <v-data-table
               :headers="headers"
@@ -104,10 +93,21 @@ export default {
         res.data.forEach(V => {
           axios.get(`http://127.0.0.1:8000/api/v1/movie/${V.movie}/`)
           .then(res => {
+            if (V.score === 5) {
+              V.score = '⭐⭐⭐⭐⭐'
+            } else if (V.score === 4) {
+              V.score = '⭐⭐⭐⭐'
+            } else if (V.score === 3) {
+              V.score = '⭐⭐⭐'
+            } else if (V.score === 2) {
+              V.score = '⭐⭐'
+            } else {
+              V.score = '⭐'
+            }
             const reviewData = {
               영화제목: res.data.title,
-              점수: V.score,
-              댓글내용: V.content
+              댓글내용: V.content,
+              점수: V.score
             }
             this.desserts.push(reviewData)
           })          
