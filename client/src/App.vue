@@ -4,6 +4,7 @@
       v-model="drawer"
       app
       clipped
+      hide-overlay="true"
     >
       <v-list dense v-if="isLoggedIn">
         <v-list-item link to="/home">

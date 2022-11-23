@@ -6,6 +6,7 @@
       :video="video"
       :thumbnails="video.snippet.thumbnails.default.url"
       @goApp="goApp"
+      style="margin-right:25px;"
     />
   </div>
 </template>

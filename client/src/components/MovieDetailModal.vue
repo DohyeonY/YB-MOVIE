@@ -1,44 +1,69 @@
 <template>
 
-  <v-card class="movie-detail-modal" tile>
-    <v-card-title>
-      <span class="headline">{{ movie.title }}</span>
-      <span v-if="movie.title_en">({{ movie.title_en }})</span>
-    </v-card-title>
-
-    
+  <v-card class="movie-detail-modal" tile>        
     <v-container fluid>
 
       <v-divider></v-divider>
       <v-row justify="space-around">
-        <v-col v-if="!video" cols="4">
+        <v-col cols="4">
           <v-img
             :src="movie.img_url"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+            style="margin:40px"
           >
           </v-img>
+        </v-col>        
+        <v-col 
+          cols="6"
+          style="margin:40px"
+        >
+          <v-card-title>
+            <h1>{{ movie.title }}</h1>
+          </v-card-title>
+          <v-col> 
+            <v-card-text>
+              <div><b>감독</b> | <span v-for="name in directors" :key=name>{{ name }}, </span></div>
+              <div><b>배우</b> | <span v-for="name in actors" :key=name>{{ name }}, </span></div>
+              <div><b>평점</b> | <span>{{ movie.rate }} / 10</span></div>
+            </v-card-text>
+            <v-card-text>
+              <h2>줄거리</h2>
+              <br><hr>
+              <v-expansion-panels accordion>
+                <v-expansion-panel accordion>
+                  <v-expansion-panel-header>보기</v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    {{ movie.description }}
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </v-card-text>
+            <VideoSearch
+              :movie="movie"
+              @goApp="goApp"
+              @click="asdf"        
+            />
+          </v-col>          
         </v-col>
-        <v-col v-if="video" cols="4">
-          <iframe id="player" type="text/html" width="640" height="450"
-          :src="videoSrc" frameborder="0"></iframe>
-        </v-col>
-        <v-col cols="4">
-          <VideoSearch
-            :movie="movie"
-            @goApp="goApp"
-          />
+        
+        <v-col>
+          
         </v-col>
       </v-row>
 
+
+      <v-dialog
+        v-model="Youtube_dialog_show"
+        max-width="900"
+      >
+        <YoutubeModal :video="video"/>
+      </v-dialog>
+
+
+
       <v-divider></v-divider>
       <v-row justify="space-around">
-        <v-col cols="4">
-          <v-card-text>
-            <div><b>감독</b> | <span v-for="name in directors" :key=name>{{ name }}, </span></div>
-            <div><b>배우</b> | <span v-for="name in actors" :key=name>{{ name }}, </span></div>
-            <div><b>평점</b> | <span>{{ movie.rate }} / 10</span></div>
-          </v-card-text>
-        </v-col>
+        
         <v-col cols="4">
           <v-card-text>
             <div><b>평가</b></div>
@@ -71,17 +96,6 @@
           </v-card-text>
         </v-col>
       </v-row>
-
-      <v-divider></v-divider>
-
-      <v-expansion-panels accordion>
-        <v-expansion-panel accordion>
-          <v-expansion-panel-header>줄거리</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            {{ movie.description }}
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
       
       <!-- <v-card-text>
         <div><b>평가</b></div>
@@ -125,6 +139,7 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import VideoSearch from './VideoSearch.vue'
+import YoutubeModal from './YoutubeModal.vue'
 
 export default {
   data () {
@@ -134,15 +149,8 @@ export default {
       target_review: null,
       user_pk: '',
       video: null,
+      Youtube_dialog_show: false,
     }
-  },
-  computed: {
-    videoSrc: function () {
-      if (this.isSelected()) {
-        return "http://www.youtube.com/embed/" + this.video
-      }
-      return ''
-    },
   },
   props: {
     movie: {
@@ -156,18 +164,15 @@ export default {
   },
   components: {
       VideoSearch,
+      YoutubeModal,
   },
   methods: {
-    asd() {
-      return
-    },
-    isSelected: function () {
-      return Object.keys(this.video).length
+    asdf() {
     },
     goApp(video) {
       this.video = null
       this.video = video
-      console.log(this.video)
+      this.Youtube_dialog_show = true
     },
     closeDialog() {
       this.video = null

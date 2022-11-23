@@ -1,9 +1,15 @@
 <template>
   <div>
-    <button @click="SearchVideo">{{ movie.title }} 관련 영상 찾기</button>
+    <v-btn
+      elevation="2"
+      @click="SearchVideo"
+    >
+    {{ movie.title }} 관련 영상 찾기
+    </v-btn>
     <VideoList
       :videos="videos"
       @goApp="goApp"
+      style="display:flex; margin-left:15px"
     />
     <VideoDetail
       :videos="videos[0]"
@@ -39,7 +45,8 @@ export default {
           key: 'AIzaSyBTX2_gE9Dd3AHnmkn56wMTRdkkNx8XFnY',
           q: this.movie.title + 'trailer',
           part: 'snippet',
-          type: 'video'
+          type: 'video',
+          maxResults: 4
         }
       })
         .then((res) => {

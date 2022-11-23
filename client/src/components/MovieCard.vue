@@ -40,7 +40,7 @@
               </span>
             </div>
             <v-btn small @click.stop="detail_dialog_show=true">
-              <v-icon>mdi-file-document-box-search-outline</v-icon>상세보기
+              상세보기
             </v-btn>
             <v-btn 
             v-if="liking"
@@ -73,14 +73,15 @@
       
       <v-dialog
         v-model="review_dialog_show"
-        max-width="500"
+        max-width="900"
         >
         <MovieReviewModal :rating="rating" :movie="movie" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeReviewDialog"/>
       </v-dialog>
-      <v-dialog 
-      v-model="detail_dialog_show"
-      width="1500px">
 
+      <v-dialog 
+        v-model="detail_dialog_show"
+        width="1600"
+      >
         <MovieDetailModal :movie="movie" :reviews="reviews" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeDetailDialog"/>
       </v-dialog>
 
