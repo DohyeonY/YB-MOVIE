@@ -159,12 +159,16 @@ YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
 
 ### LOGIN
 
+<hr>
+
 ![login](./login.gif)
 
 
 <br>
 
 ### SIGNUP
+
+<hr>
 
 ![signup](./signup.gif)
 
@@ -173,6 +177,8 @@ YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
 
 ### HOME
 
+<hr>
+
 ![home](./home.gif)
 #### 월드컵을 한번도 진행하지 않은 상태면 추천영화 목록이 나오지 않습니다.
 
@@ -180,11 +186,15 @@ YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
 
 ### WORLDCUP
 
+<hr>
+
 ![worldcup](./worldcup.gif)
 #### 총 16강으로 진행되며 매 라운드마다 영화의 순서는 랜덤하게 셔플되고 최종 우승영화와 준우승 영화의 데이터를 저장하여 추천영화에 활용합니다.
 <br>
 
 ### RECOMMEND
+
+<hr>
 
 ![recommend](./recommend.gif)
 #### 월드컵을 진행한 이후에는 추천영화 목록 출력
@@ -192,6 +202,8 @@ YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
 <br>
 
 ### COMMENT
+
+<hr>
 
 ![comment](./comment.gif)
 #### 영화의 포스터에 마우스를 가져다 대고 별점을 누르면 comment모달 창이 나옵니다.
