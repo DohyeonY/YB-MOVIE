@@ -186,7 +186,7 @@ YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
 #### 월드컵을 진행한 이후에는 추천영화 목록 출력
 
 <br>
-6.`comment
+6.comment
 
 ![comment](./comment.gif)
 #### 영화의 포스터에 마우스를 가져다 대고 별점을 누르면 comment모달 창이 나옵니다.
