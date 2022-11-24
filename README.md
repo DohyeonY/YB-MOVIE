@@ -1,5 +1,30 @@
 # Final Project - YB MOVIE
 
+## 0. Process
+
+ - `일정`
+ 
+    | 날짜        | 이름     | 작업                   |
+    | ----------- | ------- | ---------------------- |
+    | 11/16       | 여도현  | django로 db 기초 설계, cors인증 설정 |
+    |             | 배중권  |  로그인, 로그아웃 기능 구현       |
+    | 11/17       | 여도현  | models.py, views.py 작성 및 월드컵페이지 기초작성         |
+    |             | 배중권  | 로그인, 로그아웃, 회원가입 마무리, 프로필 기초 설계              |
+    | 11/18       | 여도현   | 월드컵 페이지 추가 작성     |
+    |             | 배중권   | 디테일 페이지 기초 작성, 유튜브 api 데이터 받기      |
+    | 11/19       | 여도현  | 월드컵 페이지 완성 및 월드컵용 데이터 추가 |
+    |             | 배중권  | 디테일 페이지 작성, 리뷰 페이지 수정       |
+    | 11/20       | 여도현  | 월드컵 데이터 기반으로 추천영화 출력 완성     |
+    |             | 배중권  | 디테일 페이지 작성, 프로필 페이지 작업 시작              |
+    | 11/21       | 여도현   | 인덱스 페이지 작업 시작, 인덱스 페이지 호버 구현, 좋아요 기능 추가       |
+    |             | 배중권   | 프로필 수정 작업   |
+    | 11/22       | 여도현  | 인덱스 페이지 팔로우 기능, 검색기능 추가 |
+    |             | 배중권  | 페이지네이션 작업 시작, 완료 |
+    | 11/23       | 여도현  | 인덱스 페이지 영화 리스트 랜덤 순서 출력 기능 추가      |
+    |             | 배중권  | 프로필 페이지 모달기능 추가, 디테일 페이지 유튜브영상 모달기능 추가   |
+    | 11/24       | 여도현   | 월드컵 완료 후 폭죽 기능 추가      |
+    |             | 배중권   | 프로필 페이지 완료, 디테일 페이지 완료       |
+
 ## 1. Intro
 
 YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
@@ -134,41 +159,36 @@ YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
 
 1. `Login`
 
-![login](./img/login.PNG)
+![login](./login.gif)
 
 
 
 2. `Signup`
 
-![signup](./img/signup.PNG)
+![signup](./signup.gif)
 
 
 
 3. `Home`
 
-![homepage](./img/homepage.PNG)
+![home](./home.gif)
 
 
 
-4. `Movie Detail`
+4. `Worlcup`
 
-![movie_detail_description](./img/movie_detail_description.PNG)
-
-
-
-5. `Review`
-
-![review](./img/review.PNG)
+![worldcup](./worldcup.gif)
 
 
 
-6. `Worlcup`
+5. `recommend`
 
-![worldcup_choice](./img/worldcup_choice.PNG)
+![recommend](./recommend.gif)
 
 
 
-7. `Profile`
+6. `comment`
 
-![profile(2)](./img/profile(2).PNG)
+![comment](./comment.gif)
+
 
