@@ -142,19 +142,8 @@ YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
 
 ## 5. Reuslt
 
-- Server URL
-
-  [Back-end server](https://movie-cave.herokuapp.com)
-
-  [Front-end server](https://movie-cave-vue.firebaseapp.com)
-
-- Source Code (Github Flow)
-
-  [Github Page](https://github.com/DohyeonY/final_pjt/)
   
-  
-
-
+ 
 ## 6. 실행 화면
 
 ### LOGIN
