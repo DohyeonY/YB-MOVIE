@@ -1,6 +1,7 @@
 <template>
-
-  <div v-if="!!movie">
+  <div v-if="!!movie"
+    id="divT"
+  >
     <h2>{{movie.title}}</h2>
     <v-hover
       v-slot:default="{ hover }"
@@ -17,6 +18,7 @@
         width="400px"
         height="600px"
         :elevation="hover ? 12 : 2"
+        style="display:block; margin:auto"
       ></v-img>
     </v-hover>
   </div>
@@ -54,5 +56,7 @@ export default {
 </script>
 
 <style>
-
+#divT {
+  justify-content: center;
+}
 </style>

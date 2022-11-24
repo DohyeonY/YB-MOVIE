@@ -1,6 +1,6 @@
 <template>
   <div class="signup-form mx-auto">
-    <h1>Signup</h1>
+    <h1>회원가입 페이지</h1>
 
     <form class="signup-input" @submit.prevent="signup(userInput)">
       <div v-if="getErrors.length" class="error-list alert alert-danger">

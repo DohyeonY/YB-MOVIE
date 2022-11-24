@@ -13,92 +13,83 @@
 
       <v-expand-transition>
         <v-fade-transition>
-            <v-overlay
+          <v-overlay
             v-if="hover"
             absolute
             color="#000000"
-            >
-            
+          >            
+          <br>
+          <div 
+            v-if="hover || rating !== 0"
+            class="d-flex transition-fast-in-fast-out black darken-2 text-center display-1 "
+            @click.stop="review_dialog_show=true"
+          >
+            <v-rating
+              v-model="rating"
+              color="orange"
+              background-color="orange lighten-3"
+              size="30.6"
+              ></v-rating>
+            </div>
             <br>
-              <div 
-                v-if="hover || rating !== 0"
-                class="d-flex transition-fast-in-fast-out black darken-2 text-center display-1 "
-                @click.stop="review_dialog_show=true"
-              >
-                <v-rating
-                  v-model="rating"
-                  color="orange"
-                  background-color="orange lighten-3"
-                  size="30.6"
-                ></v-rating>
-              </div>
-              <br>
-
+          <div>              
             <div>
               <span v-for="(i, idx) in rating" :key="idx">
                 <i style="color:yellow;" class="fas fa-star"></i>
               </span>
             </div>
-            <v-btn small @click.stop="detail_dialog_show=true">
+            
+            <v-btn 
+              v-if="liking"
+              @click="like"
+              style="margin-right:10px;"
+              icon>
+              <v-icon style="color:red" large>mdi-heart</v-icon>
+            </v-btn>
+    
+            <v-btn 
+              v-if="!liking"
+              @click="like"
+              style="margin-right:10px;"
+              icon>
+              <v-icon large>mdi-heart</v-icon>
+            </v-btn>
+            
+            <v-btn 
+              v-if="following"
+              @click="follow"
+              icon>
+              <v-icon style="color:yellow" large>mdi-bookmark</v-icon>
+            </v-btn>
+    
+            <v-btn 
+              v-if="!following"
+              @click="follow"
+              icon>
+              <v-icon large >mdi-bookmark</v-icon>
+            </v-btn>
+
+            <v-btn style="float: right;" @click.stop="detail_dialog_show=true">
               상세보기
             </v-btn>
-            <v-btn 
-            v-if="liking"
-            @click="like"
-            icon>
-          <v-icon style="color:red">mdi-heart</v-icon>
-        </v-btn>
-
-        <v-btn 
-        v-if="!liking"
-        @click="like"
-        icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
+          </div>
           </v-overlay>
         </v-fade-transition>
-        <!-- <div 
-          v-if="hover || rating !== 0"
-          class="transition-fast-in-fast-out black darken-2 text-center display-1 v-card--reveal"
-          @click.stop="review_dialog_show=true"
-        >
-          <v-rating
-            v-model="rating"
-            color="orange"
-            background-color="orange lighten-3"
-            size="30.6"
-          ></v-rating>
-        </div> -->
       </v-expand-transition>
       
       <v-dialog
         v-model="review_dialog_show"
         max-width="900"
+        style="height:700px"
         >
         <MovieReviewModal :rating="rating" :movie="movie" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeReviewDialog"/>
       </v-dialog>
-
       <v-dialog 
         v-model="detail_dialog_show"
         width="1600"
       >
         <MovieDetailModal :movie="movie" :reviews="reviews" @reviewUpdateEvent="ratingCheck" @closeDialogEvent="closeDetailDialog"/>
       </v-dialog>
-
-      <!-- <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      
-      <v-btn icon>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-      
-      <v-btn icon>
-        <v-icon>mdi-share-variant</v-icon>
-      </v-btn> -->
-      
-      <!-- detail modal -->
-      
     </v-card>
   </v-hover>
   
@@ -117,6 +108,7 @@ import MovieReviewModal from '@/components/MovieReviewModal.vue'
       detail_dialog_show: false,
       review_dialog_show: false,
       liking: false,
+      following: false,
       me: null,
     }),
 
@@ -149,6 +141,26 @@ import MovieReviewModal from '@/components/MovieReviewModal.vue'
       .then((res) => {
         // console.log(res)
         this.liking = res.data
+        // console.log(this.movie.like_users)   
+      })
+    },
+
+    follow: function () {
+      const token = sessionStorage.getItem('jwt')
+      const user_id = jwtDecode(token).user_id
+      const options = {
+          headers: {
+            Authorization: 'JWT ' + token
+          }
+        }
+      const item = {
+        myId: user_id,
+        movieId: this.movie.id,
+      }
+      axios.post(`http://localhost:8000/api/v1/${user_id}/${this.movie.title}/follow/`, item, options)
+      .then((res) => {
+        // console.log(res)
+        this.following = res.data
         // console.log(this.movie.like_users)   
       })
     },
@@ -196,6 +208,18 @@ import MovieReviewModal from '@/components/MovieReviewModal.vue'
         } else {
           this.liking = false
         }
+      },   
+      check_follow() {
+        const token = sessionStorage.getItem('jwt')
+        const user_id = jwtDecode(token).user_id
+        this.me = user_id
+        // console.log(this.movie.like_users)
+        // console.log(this.me)
+          if (this.movie.follow_users.includes(this.me)) {
+          this.following = true        
+        } else {
+          this.following = false
+        }
       }      
     },
 
@@ -208,6 +232,7 @@ import MovieReviewModal from '@/components/MovieReviewModal.vue'
     },
     created() {
       this.check_like()
+      this.check_follow()
     }
 
   }

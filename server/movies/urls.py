@@ -33,5 +33,6 @@ urlpatterns = [
     # api for infinite scrolling
     path('movie/list/', views.MovieListAPI.as_view(), name='movie_list'),
     path('<int:my_pk>/<movie_title>/like/', views.movie_like),
+    path('<int:my_pk>/<movie_title>/follow/', views.movie_follow),
     path('searchmovie/', views.searchmovie, name="searchmovie"),
 ]

@@ -26,7 +26,7 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = '__all__'
         # ('id', 'title', 'title_en', 'rate', 'img_url', 'description', 'directors', 'actors', 'genres', 'users', 'open_date')
-        read_only_fields = ('like_users',)
+        read_only_fields = ('like_users', 'follow_users',)
 
 class ReviewSerializer(serializers.ModelSerializer):
     # class UserSerializer(serializers.ModelSerializer):
@@ -35,16 +35,9 @@ class ReviewSerializer(serializers.ModelSerializer):
     #         fields = ('username',)
 
     # user = UserSerializer()
-
     class Meta:
         model = Review
-        fields = ('id', 'content', 'score', 'movie', 'user',)
-
-class GetReviewSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Review
-        fields = '__all__'
+        fields = ('id', 'content', 'score', 'movie', 'user')
     
 class WorldcupSerializer(serializers.ModelSerializer):
     class Meta:

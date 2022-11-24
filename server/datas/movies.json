@@ -379,7 +379,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "겨울왕국 2",
-            "title_en": "Frozen 2",
+            "title_en": "Frozen <b>2</b>",
             "rate": "8.68",
             "directors": [
                 242,

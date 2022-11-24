@@ -1,5 +1,5 @@
 <template>
-  <v-card class="movie-review-modal" tile>
+  <v-card class="movie-review-modal" tile style="height:200px;">
     <v-card-title>
       <span class="headline">평가하기</span>
     </v-card-title>
@@ -12,7 +12,7 @@
           v-model="rating"
           color="orange"
           background-color="orange lighten-3"
-          size="21.6"
+          size="30.6"
         ></v-rating>
       </div>
 

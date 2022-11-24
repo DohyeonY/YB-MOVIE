@@ -45,7 +45,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "터미네이터 2:오리지널",
-            "title_en": "Terminator <b>2</b>: Judgment Day",
+            "title_en": "Terminator 2: Judgment Day",
             "rate": "9.43",
             "directors": [
                 621
@@ -379,7 +379,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "겨울왕국 2",
-            "title_en": "Frozen <b>2</b>",
+            "title_en": "Frozen 2",
             "rate": "8.68",
             "directors": [
                 242,
@@ -1384,7 +1384,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "월-E",
-            "title_en": "WALL-<b>E</b>",
+            "title_en": "WALL-E",
             "rate": "9.40",
             "directors": [
                 11816
@@ -1688,7 +1688,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "토이 스토리 3",
-            "title_en": "Toy Story <b>3</b>",
+            "title_en": "Toy Story 3",
             "rate": "9.38",
             "directors": [
                 26503
@@ -3312,7 +3312,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "터미네이터 2",
-            "title_en": "Terminator <b>2</b>: Judgment Day",
+            "title_en": "Terminator 2: Judgment Day",
             "rate": "9.43",
             "directors": [
                 621
@@ -3604,7 +3604,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "토이 스토리 4",
-            "title_en": "Toy Story <b>4</b>",
+            "title_en": "Toy Story 4",
             "rate": "9.05",
             "directors": [
                 167128
@@ -4068,7 +4068,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "마이펫의 이중생활2",
-            "title_en": "The Secret Life of Pets <b>2</b>",
+            "title_en": "The Secret Life of Pets 2",
             "rate": "8.77",
             "directors": [
                 177943
@@ -4262,7 +4262,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "존 윅 3: 파라벨룸",
-            "title_en": "John Wick: Chapter <b>3</b> - Parabellum",
+            "title_en": "John Wick: Chapter 3 - Parabellum",
             "rate": "8.04",
             "directors": [
                 4694
@@ -8327,7 +8327,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "엽문3: 최후의 대결",
-            "title_en": "Ip Man <b>3</b>",
+            "title_en": "Ip Man 3",
             "rate": "8.56",
             "directors": [
                 53288
@@ -8451,7 +8451,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "님포매니악 볼륨1",
-            "title_en": "Nymphomaniac: Vol.<b>1</b>",
+            "title_en": "Nymphomaniac: Vol.1",
             "rate": "7.63",
             "directors": [
                 909
@@ -8933,7 +8933,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "레고 무비2",
-            "title_en": "The Lego Movie <b>2</b>: The Second Part",
+            "title_en": "The Lego Movie 2: The Second Part",
             "rate": "8.73",
             "directors": [
                 2385
@@ -10122,7 +10122,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "패딩턴 2",
-            "title_en": "Paddington <b>2</b>",
+            "title_en": "Paddington 2",
             "rate": "9.09",
             "directors": [
                 173486
@@ -11901,7 +11901,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "몬스터 호텔 3",
-            "title_en": "Hotel Transylvania <b>3</b>: A Monster Vacation",
+            "title_en": "Hotel Transylvania 3: A Monster Vacation",
             "rate": "8.59",
             "directors": [
                 58573
@@ -12053,7 +12053,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "마일 22",
-            "title_en": "Mile <b>22</b>",
+            "title_en": "Mile 2>",
             "rate": "7.41",
             "directors": [
                 1232
@@ -12126,7 +12126,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "인크레더블 2",
-            "title_en": "Incredibles <b>2</b>",
+            "title_en": "Incredibles 2",
             "rate": "9.23",
             "directors": [
                 45076
@@ -12153,7 +12153,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "1987",
-            "title_en": "<b>1987</b>:When the Day Comes",
+            "title_en": ":When>1987:When the Day Comes",
             "rate": "9.22",
             "directors": [
                 8284
@@ -12537,7 +12537,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "블레이드 2",
-            "title_en": "Blade <b>2</b>",
+            "title_en": "Blade 2",
             "rate": "8.70",
             "directors": [
                 518
@@ -13030,7 +13030,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "오션스8",
-            "title_en": "Ocean's <b>8</b>",
+            "title_en": "Ocean's 8",
             "rate": "7.63",
             "directors": [
                 469
@@ -13249,7 +13249,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "데드풀 2",
-            "title_en": "Deadpool <b>2</b>",
+            "title_en": "Deadpool 2",
             "rate": "8.69",
             "directors": [
                 68471
@@ -13295,7 +13295,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "극장판 포켓몬스터DP - 디아루가 VS 펄기아 VS 다크라이",
-            "title_en": "ポケットモンスタ- ダイヤモンド パ-ル ディアルガ<b>VS</b>パルキア<b>VS</b>ダ-クライ",
+            "title_en": "ポケットモンスタ- ダイヤモンド パ-ル ディアルガVSパルキアVSダ-クライ",
             "rate": "8.03",
             "directors": [
                 72736
@@ -13348,7 +13348,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "여중생A",
-            "title_en": "Student <b>A</b>",
+            "title_en": "Student A",
             "rate": "6.32",
             "directors": [
                 156921
@@ -13957,7 +13957,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "마징가 Z: 인피니티",
-            "title_en": "Mazinger <b>Z</b> Infinity",
+            "title_en": "Mazinger Z Infinity",
             "rate": "7.12",
             "directors": [
                 143425
@@ -14520,7 +14520,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "12 솔져스",
-            "title_en": "<b>12</b> Strong",
+            "title_en": "12 Strong",
             "rate": "8.10",
             "directors": [
                 409943
@@ -14896,7 +14896,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "120BPM",
-            "title_en": "<b>120</b> Beats Per Minute",
+            "title_en": "120 Beats Per Minute",
             "rate": "2.74",
             "directors": [
                 71137
@@ -15586,7 +15586,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "스테이션 7",
-            "title_en": "Salyut <b>7</b>",
+            "title_en": "Salyut 7<",
             "rate": "8.73",
             "directors": [
                 405682
@@ -15880,7 +15880,7 @@
         "model": "movies.movie",
         "fields": {
             "title": "블레이드 러너 2049",
-            "title_en": "Blade Runner <b>2049</b>",
+            "title_en": "Blade Runner 2049",
             "rate": "7.98",
             "directors": [
                 162941

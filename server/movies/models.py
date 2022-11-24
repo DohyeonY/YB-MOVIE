@@ -35,6 +35,7 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre, related_name='movies', blank=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='movies', blank=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies')
+    follow_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='follow_movies')
     
     class Meta:
         ordering=['-open_date', '-rate']

@@ -1,15 +1,11 @@
 <template>
   <div>
-    <v-btn
-      elevation="2"
-      @click="SearchVideo"
-    >
-    {{ movie.title }} 관련 영상 찾기
-    </v-btn>
+    <br>
+    <h2>{{ movie.title }} 관련 영상</h2>
     <VideoList
       :videos="videos"
       @goApp="goApp"
-      style="display:flex; margin-left:15px"
+      style="display:flex;"
     />
     <VideoDetail
       :videos="videos[0]"
@@ -56,7 +52,10 @@ export default {
     },
     goApp(video) {
       this.$emit('goApp', video)
-    }
+    },
+  },
+  created() {
+    this.SearchVideo()
   }
 }
 </script>

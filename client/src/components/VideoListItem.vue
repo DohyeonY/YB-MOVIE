@@ -1,6 +1,6 @@
 <template>
   <div id="div1" @click="goApp">
-    <img :src="thumbnails" alt="" style="width:150px">
+    <img :src="thumbnails" alt="" style="width:160px">
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
 
 <style>
 #div1 {
-  /* display: flex; */
+
   margin-top: 20px;
 }
 </style>

@@ -1,5 +1,8 @@
 <template>
   <div>
+    
+    <hr v-if="recommendedMovies.length">
+    <br v-if="recommendedMovies.length">
     <h2 v-if="recommendedMovies.length" style="text-align:center;">추천 영화</h2>
     <vue-glide v-if="recommendedMovies.length"
       class="glide__track"
@@ -12,7 +15,6 @@
         v-for="(movie, idx) in recommendedMovies"
         :key="idx">
         <MovieDetail :movie="movie"/>
-        <!-- <p>{{ movie.title }}</p> -->
       </vue-glide-slide>
     </vue-glide>
     <hr>

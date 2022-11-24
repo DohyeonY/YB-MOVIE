@@ -1,7 +1,7 @@
 <template>
-  <v-main class="worldcup">
+  <v-main class="worldcup" style="padding:80px">
 
-    <div v-if="!finishFlag">
+    <div v-if="!finishFlag" style="text-align:center">
       <h1>취향에 맞는 영화를 추천해 드리기 위해 </h1> 
       <h1>영화 이상형 월드컵을 진행해 주세요!</h1>
       <hr>
@@ -25,8 +25,15 @@
       </v-row>
     </div>
 
-    <div style="text-align: center;" v-if="finishFlag">
+    <div style="text-align: center; " v-if="finishFlag">
+      
       <h1>우승!</h1>
+      <fireworks 
+      :boxHeight="'100%'" 
+      :boxWidth="'100%'" 
+      :auto="false" 
+      v-if="work"
+      />
       <br>
       <div style="display: inline-block;">
         <v-btn style=" margin: 20px;" @click="toHome">무비 리스트</v-btn>
@@ -43,59 +50,26 @@
         </v-col>
       </v-row>
       <br>
-
-      <!-- <v-row
-        align="center"
-        justify="center"
-        v-for="movie in getRecommendedMovies" 
-        :key="movie.id"  
-      >
-        <v-col cols="4" align="center">
-          <WorldcupChoice id="left" :movie="left" @choiceEvent="leftChoice" />
-        </v-col> -->
-
-      <!-- </v-row> -->
-
       <h2>당신에게 추천해 드리는 영화</h2>
-      <div class="container text-center">
+      <div class="container">
         <div class="row">
           <br>
           <div class="col-4" 
             v-for="movie in worldcupRecommendThree" 
-            :key="movie.id"
+            :key="movie.id"            
             >
             <div>
-              <!-- {{ movie }} -->
-              <div style="height:200px; width:150px;">
+              <div style="height:200px; width:150px; display:flex; margin:auto;">
                 <div>
                   <img :src= "`https://image.tmdb.org/t/p/original${movie.poster_path}`" alt="poster" style="height:100%; width:100%;">
                   <br>
                   <br>
-                  <!-- {{ movie.title}} -->
-                  <!-- <div class="card-body">
-                    <h5 class="card-title text-center fw-bold">{{ movie.title }}</h5>
-                    <p class="card-text">⭐ 평점 : {{ movie.vote_average }}</p>
-                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-
-      <!-- <div v-for="movie in getRecommendedMovies" :key="movie.id"  style="height:200px; width:150px;">
-      
-        <div class="col" style="height:200px; width:150px;">
-          <div class="card h-50">
-            <img :src= "`https://image.tmdb.org/t/p/original${movie.poster_path}`" alt="poster" style="height:170px; width:150px;">
-            <div class="card-body">
-              <h5 class="card-title text-center fw-bold">{{ movie.title }}</h5>
-              <p class="card-text">⭐ 평점 : {{ movie.vote_average }}</p>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
 
   </v-main>
@@ -105,7 +79,7 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import WorldcupChoice from '@/components/WorldcupChoice.vue'
-
+import fireworks from '@/components/fireworks'
 export default {
   data () {
     return {
@@ -119,11 +93,14 @@ export default {
       worldcupRecommend : [],
       worldcupRecommendThree : [],
       newBox: [],
+      isShowFireworks: false,
+      work: true,
     }
   },
 
   components: {
     WorldcupChoice,
+    fireworks,
   },
   computed : {
     getRecommendedMovies () {
@@ -301,6 +278,11 @@ export default {
         // console.log(this.)
         this.finishFlag = true
       }
+    },
+    finishFlag() {
+      setTimeout(() => {
+        this.work = false
+      }, 8000)
     }
   },
 
@@ -312,5 +294,4 @@ export default {
 </script>
 
 <style>
-
 </style>

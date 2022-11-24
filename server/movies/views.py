@@ -289,7 +289,7 @@ def review_movie(request, movie_pk):
 def review_user(request, user_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     reviews = user.review_set
-    reviews_serializer = GetReviewSerializer(reviews, many=True)
+    reviews_serializer = ReviewSerializer(reviews, many=True)
     return Response(reviews_serializer.data)
 
 @api_view(['POST'])
@@ -353,22 +353,9 @@ def movie_like(request, my_pk, movie_title):
 @permission_classes([AllowAny])
 def searchmovie(request) :
     movie = Movie.objects.all()
-    # mdata = []
+
     search_serializers = MovieSerializer(movie, many=True)
-    # for i in search_serializers.data :
-    #     if i.title in request.data :
-    #         mdata.append(i)
-    # print()
-    # print()
-    # print()
-    # print()
-    # print(search_serializers)
-    # # print(search)
-    # print()
-    # print()
-    # print()
-    # print()
-    # print()
+
     return Response(search_serializers.data)
 
 @api_view(['POST'])
@@ -386,6 +373,22 @@ def movie_like(request, my_pk, movie_title):
       liking = True
 
   return Response(liking)
+
+@api_view(['POST'])
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
+def movie_follow(request, my_pk, movie_title):
+  movie = get_object_or_404(Movie, title=movie_title)
+  me = get_object_or_404(get_user_model(), pk=my_pk)
+  if me.follow_movies.filter(pk=movie.pk).exists():
+      me.follow_movies.remove(movie.pk)
+      following = False
+
+  else:
+      me.follow_movies.add(movie.pk)
+      following = True
+
+  return Response(following)
   
 # for infinite scroll(Pagination)
 class MoviePagination(pagination.PageNumberPagination):

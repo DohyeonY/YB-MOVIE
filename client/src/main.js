@@ -3,6 +3,7 @@ import './plugins/axios'
 import App from './App.vue'
 import VueGlide from 'vue-glide-js'
 import 'vue-glide-js/dist/vue-glide.css'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import router from './router'
 import store from './store'
@@ -14,6 +15,10 @@ Vue.config.productionTip = false;
 
 Vue.use(VueSession);
 Vue.use(VueGlide)
+
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+
 new Vue({
   router,
   store,

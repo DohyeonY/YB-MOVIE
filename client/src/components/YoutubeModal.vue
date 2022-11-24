@@ -26,10 +26,8 @@ export default {
             return Object.keys(this.video).length
         },
     }
-
 }
 </script>
 
 <style>
-
 </style>

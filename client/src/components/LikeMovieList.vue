@@ -74,19 +74,14 @@ export default {
           Authorization: 'JWT ' + token
         }
       }
-      // console.log(this.movie)
       axios.get(`http://localhost:8000/api/v1/review/movie/${this.movie.id}/`, options)
         .then(res => {
+          console.log(res)
           this.reviewss = res.data
           this.reviewss.forEach(review => {
-            // console.log(review)
-            // console.log(review.username)
-            // if (review.user === user_id) {
-            //   this.rating = review.score
-            // }            
             axios.get(`http://localhost:8000/api/v1/user/${review.user}/`, options)
             .then(res => {
-              
+              console.log(1234)
               const data = {
                 content: review.content,
                 id: review.id,

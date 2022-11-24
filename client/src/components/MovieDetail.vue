@@ -20,14 +20,10 @@
             </v-btn>
 
             <div>
-              <!-- <span v-for="(i, idx) in rating" :key="idx">
-                <i style="color:yellow;" class="fas fa-star"></i>
-              </span> -->
             </div>
           </v-overlay>
         </v-fade-transition>
-        <h4 style="text-align: center; margin:8px;">{{ movie.title }}</h4>
-        <!-- <p class="content-font" style="font-weight: bold;">{{ movie.title }}</p> -->
+        <h4 style="text-align: center; margin:8px;">{{ movie.title | resize }}</h4>
       </v-card>  
       </template>
     </v-hover>
@@ -36,14 +32,21 @@
 </template>
 
 <script>
-
-// import axios from 'axios'
-// import VueJwtDecode from "vue-jwt-decode"
 export default {
   name: "MovieDetail",
   components: {
 
   },
+  filters:{
+      resize(value){
+        if(value.length >= 18){
+          value = value.slice(0,17) + '...'
+          return value
+        }else{
+          return value
+        }
+      }
+    },
   data: function () {
     return {
       show: false,
