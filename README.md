@@ -199,3 +199,21 @@ YB MOVIE는 데이터 기반 영화 추천 서비스 입니다.
 #### 영화의 포스터에 마우스를 가져다 대고 별점을 누르면 comment모달 창이 나옵니다.
 
 <br>
+
+### DETAIL
+
+<hr>
+
+![detail](./detail.gif)
+#### 디테일 화면에는 영화의 제목, 포스터, 평점, 댓글, 관련 영상, 줄거리가 나옵니다.
+
+<br>
+
+### SEARCHBOOKMARK
+
+<hr>
+
+![searchbookmark](./searchbookmark.gif)
+#### 검색기능과 북마크 기능이 있어 두가지 동시에 적용이 가능합니다.
+
+<br>
